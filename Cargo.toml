@@ -1,0 +1,5 @@
+[package]
+
+name = "Rust Raytracer"
+version = "0.0.1"
+authors = [ "Thomas Yarnall <corragon@gmail.com>", "Josh Anderson" ]
