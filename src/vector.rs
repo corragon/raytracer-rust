@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub};
+use std::ops::{Add, AddAssign, Sub};
 
 pub struct Vec3 {
   pub i : f64,
@@ -16,6 +16,16 @@ impl Add for Vec3 {
   type Output = Vec3;
   fn add(self, other: Vec3) -> Vec3 {
       Vec3 {i: self.i + other.i, j: self.j + other.j, k: self.k + other.k}
+  }
+}
+
+impl AddAssign for Vec3 {
+  fn add_assign(&mut self, other: Vec3) {
+    *self = Vec3 {
+      i: self.i + other.i,
+      j: self.j + other.j,
+      k: self.k + other.k,
+    };
   }
 }
 
