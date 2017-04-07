@@ -4,10 +4,9 @@ mod vector;
 use vector::Vec3;
 
 fn main() {
-  let v = Vec3 { i: 200f64, j: 200f64, k: 255f64 };
-  let nx = 200;
+  let nx = 300;
   let ny = 200;
-  let data = format!("{}\n{} {}\n{}\n", "P3", v.i, v.j, v.k);
+  let data = format!("{}\n{} {}\n{}\n", "P3", nx, ny, 255);
   let f = File::create("target/image.ppm").expect("Unable to create file");
   let mut f = BufWriter::new(f);
   f.write_all(data.as_bytes()).expect("Unable to write data");
