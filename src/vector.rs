@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3 {
@@ -43,6 +43,23 @@ impl SubAssign for Vec3 {
       i: self.i - other.i,
       j: self.j - other.j,
       k: self.k - other.k,
+    }
+  }
+}
+
+impl Mul for Vec3 {
+  type Output = Vec3;
+  fn mul(self, rhs: Vec3) -> Vec3 {
+    Vec3 {i: self.i * rhs.i, j: self.j * rhs.j, k: self.k * rhs.k}
+  }
+}
+
+impl MulAssign for Vec3 {
+  fn mul_assign(&mut self, rhs: Vec3) {
+    *self = Vec3 {
+      i: self.i * rhs.i,
+      j: self.j * rhs.j,
+      k: self.k * rhs.k,
     }
   }
 }
