@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Index};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3 {
@@ -64,6 +64,18 @@ impl MulAssign for Vec3 {
   }
 }
 
+impl Index<i32> for Vec3 {
+  type Output = f64;
+  fn index(&self, idx: i32) -> &f64 {
+    match idx {
+      0 => &self.i,
+      1 => &self.j,
+      2 => &self.k,
+      _ => panic!("index out of range: {}", idx),
+    }
+  }
+}
+
 #[cfg(test)]
 mod should {
   use super::Vec3;
@@ -120,5 +132,20 @@ mod should {
     assert_eq!(v1.i, 6.0);
     assert_eq!(v1.j, 6.0);
     assert_eq!(v1.k, 6.0);
+  }
+  #[test]
+  fn allow_index_access() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+
+    assert_eq!(v1[0], 2.0);
+    assert_eq!(v1[1], 2.0);
+    assert_eq!(v1[2], 2.0);
+  }
+  #[test]
+  #[should_panic(expected = "index out of range: 9")]
+  fn panic_on_bad_index() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+
+    assert_eq!(v1[9], 2.0);
   }
 }
