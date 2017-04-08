@@ -63,3 +63,44 @@ impl MulAssign for Vec3 {
     }
   }
 }
+
+#[cfg(test)]
+mod should {
+  use super::Vec3;
+  #[test]
+  fn add() {
+    let v1 = Vec3 { i: 1.0, j: 1.0, k: 1.0};
+    let v2 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let sum = v1 + v2;
+    assert_eq!(sum.i, 3.0);
+    assert_eq!(sum.j, 3.0);
+    assert_eq!(sum.k, 3.0);
+  }
+  #[test]
+  fn add_assign() {
+    let mut v1 = Vec3 { i: 1.0, j: 1.0, k: 1.0};
+    let v2 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    v1 += v2;
+    assert_eq!(v1.i, 3.0);
+    assert_eq!(v1.j, 3.0);
+    assert_eq!(v1.k, 3.0);
+  }
+  #[test]
+  fn subtract() {
+    let v1 = Vec3 { i: 1.0, j: 1.0, k: 1.0};
+    let v2 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let diff = v1 - v2;
+    assert_eq!(diff.i, -1.0);
+    assert_eq!(diff.j, -1.0);
+    assert_eq!(diff.k, -1.0);
+  }
+  #[test]
+  fn subtract_assign() {
+    let mut v1 = Vec3 { i: 1.0, j: 1.0, k: 1.0};
+    let v2 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    v1 -= v2;
+    assert_eq!(v1.i, -1.0);
+    assert_eq!(v1.j, -1.0);
+    assert_eq!(v1.k, -1.0);
+  }
+}
