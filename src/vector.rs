@@ -1,4 +1,9 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Index};
+use std::ops::{
+  Add, AddAssign,
+  Sub, SubAssign,
+  Mul, MulAssign,
+  Index, IndexMut,
+};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Vec3 {
@@ -76,6 +81,17 @@ impl Index<i32> for Vec3 {
   }
 }
 
+impl IndexMut<i32> for Vec3 {
+  fn index_mut<'a>(&'a mut self, idx: i32) -> &'a mut f64 {
+    match idx {
+      0 => &mut self.i,
+      1 => &mut self.j,
+      2 => &mut self.k,
+      _ => panic!("index out of range: {}", idx),
+    }
+  }
+}
+
 #[cfg(test)]
 mod should {
   use super::Vec3;
@@ -147,5 +163,14 @@ mod should {
     let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
 
     assert_eq!(v1[9], 2.0);
+  }
+  #[test]
+  fn allow_index_mut_access() {
+    let mut v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    v1[0] = 9.0;
+
+    assert_eq!(v1[0], 9.0);
+    assert_eq!(v1[1], 2.0);
+    assert_eq!(v1[2], 2.0);
   }
 }
