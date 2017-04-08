@@ -103,4 +103,22 @@ mod should {
     assert_eq!(v1.j, -1.0);
     assert_eq!(v1.k, -1.0);
   }
+  #[test]
+  fn multiply_elementwise() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+    let product = v1 * v2;
+    assert_eq!(product.i, 6.0);
+    assert_eq!(product.j, 6.0);
+    assert_eq!(product.k, 6.0);
+  }
+  #[test]
+  fn multiply_assign_elementwise() {
+    let mut v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+    v1 *= v2;
+    assert_eq!(v1.i, 6.0);
+    assert_eq!(v1.j, 6.0);
+    assert_eq!(v1.k, 6.0);
+  }
 }
