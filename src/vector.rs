@@ -2,6 +2,7 @@ use std::ops::{
   Add, AddAssign,
   Sub, SubAssign,
   Mul, MulAssign,
+  Div, DivAssign,
   Index, IndexMut,
 };
 
@@ -65,6 +66,23 @@ impl MulAssign for Vec3 {
       i: self.i * rhs.i,
       j: self.j * rhs.j,
       k: self.k * rhs.k,
+    }
+  }
+}
+
+impl Div for Vec3 {
+  type Output = Vec3;
+  fn div(self, rhs: Vec3) -> Vec3 {
+    Vec3 {i: self.i / rhs.i, j: self.j / rhs.j, k: self.k / rhs.k}
+  }
+}
+
+impl DivAssign for Vec3 {
+  fn div_assign(&mut self, rhs: Vec3) {
+    *self = Vec3 {
+      i: self.i / rhs.i,
+      j: self.j / rhs.j,
+      k: self.k / rhs.k,
     }
   }
 }
@@ -148,6 +166,24 @@ mod should {
     assert_eq!(v1.i, 6.0);
     assert_eq!(v1.j, 6.0);
     assert_eq!(v1.k, 6.0);
+  }
+  #[test]
+  fn divide_elementwise() {
+    let v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+    let quotient = v1 / v2;
+    assert_eq!(quotient.i, 2.0);
+    assert_eq!(quotient.j, 2.0);
+    assert_eq!(quotient.k, 2.0);
+  }
+  #[test]
+  fn divide_assign_elementwise() {
+    let mut v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+    v1 /= v2;
+    assert_eq!(v1.i, 2.0);
+    assert_eq!(v1.j, 2.0);
+    assert_eq!(v1.k, 2.0);
   }
   #[test]
   fn allow_index_access() {
