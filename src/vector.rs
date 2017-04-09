@@ -285,8 +285,20 @@ mod should {
 
   #[test]
   fn calculate_length() {
-    let mut v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
+    let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
 
     assert_eq!(v1.length(), 6.0);
+  }
+  #[test]
+  fn calculate_length_with_some_zeros() {
+    let v2 = Vec3 { i: 4.0, j: 0.0, k: 0.0};
+
+    assert_eq!(v2.length(), 4.0);
+  }
+  #[test]
+  fn calculate_length_for_zero_vector() {
+    let v2 = Vec3 { i: 0.0, j: 0.0, k: 0.0};
+
+    assert_eq!(v2.length(), 0.0);
   }
 }
