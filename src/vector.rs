@@ -17,6 +17,9 @@ impl Vec3 {
   pub fn length(&self) -> f64 {
     (self.i * self.i + self.j * self.j + self.k * self.k).sqrt()
   }
+  pub fn dot(&self, other: Vec3) -> f64 {
+    self.i * other.i + self.j * other.j + self.k * other.k
+  }
 }
 
 impl Add for Vec3 {
@@ -300,5 +303,14 @@ mod should {
     let v2 = Vec3 { i: 0.0, j: 0.0, k: 0.0};
 
     assert_eq!(v2.length(), 0.0);
+  }
+  #[test]
+  fn calculate_dot_product() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+
+    let product = v1.dot(v2);
+
+    assert_eq!(product, 18.0);
   }
 }
