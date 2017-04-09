@@ -70,19 +70,36 @@ impl MulAssign for Vec3 {
   }
 }
 
-impl Div for Vec3 {
+impl Div<Vec3> for Vec3 {
   type Output = Vec3;
   fn div(self, rhs: Vec3) -> Vec3 {
     Vec3 {i: self.i / rhs.i, j: self.j / rhs.j, k: self.k / rhs.k}
   }
 }
 
-impl DivAssign for Vec3 {
+impl Div<f64> for Vec3 {
+  type Output = Vec3;
+  fn div(self, scalar: f64) -> Vec3 {
+    Vec3 {i: self.i / scalar, j: self.j / scalar, k: self.k / scalar}
+  }
+}
+
+impl DivAssign<Vec3> for Vec3 {
   fn div_assign(&mut self, rhs: Vec3) {
     *self = Vec3 {
       i: self.i / rhs.i,
       j: self.j / rhs.j,
       k: self.k / rhs.k,
+    }
+  }
+}
+
+impl DivAssign<f64> for Vec3 {
+  fn div_assign(&mut self, scalar: f64) {
+    *self = Vec3 {
+      i: self.i / scalar,
+      j: self.j / scalar,
+      k: self.k / scalar,
     }
   }
 }
@@ -168,7 +185,7 @@ mod should {
     assert_eq!(v1.k, 6.0);
   }
   #[test]
-  fn divide_elementwise() {
+  fn divide_by_vec3_elementwise() {
     let v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
     let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
     let quotient = v1 / v2;
@@ -177,10 +194,28 @@ mod should {
     assert_eq!(quotient.k, 2.0);
   }
   #[test]
-  fn divide_assign_elementwise() {
+  fn divide_by_vec3_assign_elementwise() {
     let mut v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
     let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
     v1 /= v2;
+    assert_eq!(v1.i, 2.0);
+    assert_eq!(v1.j, 2.0);
+    assert_eq!(v1.k, 2.0);
+  }
+  #[test]
+  fn divide_by_f64() {
+    let v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
+    let quotient = v1 / 3.0;
+
+    assert_eq!(quotient.i, 2.0);
+    assert_eq!(quotient.j, 2.0);
+    assert_eq!(quotient.k, 2.0);
+  }
+  #[test]
+  fn divide_by_f64_assign() {
+    let mut v1 = Vec3 { i: 6.0, j: 6.0, k: 6.0};
+    v1 /= 3.0;
+
     assert_eq!(v1.i, 2.0);
     assert_eq!(v1.j, 2.0);
     assert_eq!(v1.k, 2.0);
