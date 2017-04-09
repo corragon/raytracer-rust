@@ -14,6 +14,12 @@ pub struct Vec3 {
 }
 
 impl Vec3 {
+  pub fn x(&self) -> f64 { self.i }
+  pub fn y(&self) -> f64 { self.j }
+  pub fn z(&self) -> f64 { self.k }
+  pub fn r(&self) -> f64 { self.i }
+  pub fn g(&self) -> f64 { self.j }
+  pub fn b(&self) -> f64 { self.k }
   pub fn length(&self) -> f64 {
     (self.i * self.i + self.j * self.j + self.k * self.k).sqrt()
   }
@@ -353,5 +359,21 @@ mod should {
     assert_eq!(product[0], 4.0 / 6.0);
     assert_eq!(product[1], 4.0 / 6.0);
     assert_eq!(product[2], 2.0 / 6.0);
+  }
+  #[test]
+  fn have_color_access_functions() {
+    let v1 = Vec3 { i: 1.0, j: 2.0, k: 3.0};
+
+    assert_eq!(v1.r(), 1.0);
+    assert_eq!(v1.g(), 2.0);
+    assert_eq!(v1.b(), 3.0);
+  }
+  #[test]
+  fn have_coordinate_access_functions() {
+    let v1 = Vec3 { i: 1.0, j: 2.0, k: 3.0};
+
+    assert_eq!(v1.x(), 1.0);
+    assert_eq!(v1.y(), 2.0);
+    assert_eq!(v1.z(), 3.0);
   }
 }
