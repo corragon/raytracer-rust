@@ -27,6 +27,9 @@ impl Vec3 {
       k: self.i * other.j - self.j * other.i,
     };
   }
+  pub fn unit_vector(&self) -> Vec3 {
+    return *self / self.length()
+  }
 }
 
 impl Add for Vec3 {
@@ -330,5 +333,25 @@ mod should {
     assert_eq!(product[0], 0.0);
     assert_eq!(product[1], 0.0);
     assert_eq!(product[2], 1.0);
+  }
+  #[test]
+  fn calculate_unit_vector_simple() {
+    let v1 = Vec3 { i: 4.0, j: 0.0, k: 0.0};
+
+    let product = v1.unit_vector();
+
+    assert_eq!(product[0], 1.0);
+    assert_eq!(product[1], 0.0);
+    assert_eq!(product[2], 0.0);
+  }
+  #[test]
+  fn calculate_unit_vector_multple() {
+    let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
+
+    let product = v1.unit_vector();
+
+    assert_eq!(product[0], 4.0 / 6.0);
+    assert_eq!(product[1], 4.0 / 6.0);
+    assert_eq!(product[2], 2.0 / 6.0);
   }
 }
