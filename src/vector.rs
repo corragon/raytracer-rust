@@ -14,6 +14,9 @@ pub struct Vec3 {
 }
 
 impl Vec3 {
+  pub fn new(first : f64, second : f64, third : f64) -> Vec3 {
+    Vec3 { i: first, j: second, k: third }
+  }
   pub fn x(&self) -> f64 { self.i }
   pub fn y(&self) -> f64 { self.j }
   pub fn z(&self) -> f64 { self.k }
@@ -302,6 +305,14 @@ mod should {
 
 
 
+  #[test]
+  fn construct_with_new() {
+    let v1 = Vec3::new(4.0, 5.0, 6.0);
+
+    assert_eq!(v1[0], 4.0);
+    assert_eq!(v1[1], 5.0);
+    assert_eq!(v1[2], 6.0);
+  }
   #[test]
   fn calculate_length() {
     let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
