@@ -279,4 +279,14 @@ mod should {
     assert_eq!(v1[1], 2.0);
     assert_eq!(v1[2], 2.0);
   }
+
+
+
+
+  #[test]
+  fn calculate_length() {
+    let mut v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
+
+    assert_eq!(v1.length(), 6.0);
+  }
 }
