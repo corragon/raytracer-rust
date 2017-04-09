@@ -20,6 +20,13 @@ impl Vec3 {
   pub fn dot(&self, other: Vec3) -> f64 {
     self.i * other.i + self.j * other.j + self.k * other.k
   }
+  pub fn cross(&self, other: Vec3) -> Vec3 {
+    return Vec3 {
+      i: self.j * other.k - self.k * other.j,
+      j: -(self.i * other.k - self.k * other.i),
+      k: self.i * other.j - self.j * other.i,
+    };
+  }
 }
 
 impl Add for Vec3 {
@@ -312,5 +319,16 @@ mod should {
     let product = v1.dot(v2);
 
     assert_eq!(product, 18.0);
+  }
+  #[test]
+  fn calculate_cross_product() {
+    let v1 = Vec3 { i: 1.0, j: 0.0, k: 0.0};
+    let v2 = Vec3 { i: 0.0, j: 1.0, k: 0.0};
+
+    let product = v1.cross(v2);
+
+    assert_eq!(product[0], 0.0);
+    assert_eq!(product[1], 0.0);
+    assert_eq!(product[2], 1.0);
   }
 }
