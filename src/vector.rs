@@ -53,19 +53,36 @@ impl SubAssign for Vec3 {
   }
 }
 
-impl Mul for Vec3 {
+impl Mul<Vec3> for Vec3 {
   type Output = Vec3;
   fn mul(self, rhs: Vec3) -> Vec3 {
     Vec3 {i: self.i * rhs.i, j: self.j * rhs.j, k: self.k * rhs.k}
   }
 }
 
-impl MulAssign for Vec3 {
+impl Mul<f64> for Vec3 {
+  type Output = Vec3;
+  fn mul(self, scalar: f64) -> Vec3 {
+    Vec3 {i: self.i * scalar, j: self.j * scalar, k: self.k * scalar}
+  }
+}
+
+impl MulAssign<Vec3> for Vec3 {
   fn mul_assign(&mut self, rhs: Vec3) {
     *self = Vec3 {
       i: self.i * rhs.i,
       j: self.j * rhs.j,
       k: self.k * rhs.k,
+    }
+  }
+}
+
+impl MulAssign<f64> for Vec3 {
+  fn mul_assign(&mut self, scalar: f64) {
+    *self = Vec3 {
+      i: self.i * scalar,
+      j: self.j * scalar,
+      k: self.k * scalar,
     }
   }
 }
@@ -167,7 +184,7 @@ mod should {
     assert_eq!(v1.k, -1.0);
   }
   #[test]
-  fn multiply_elementwise() {
+  fn multiply_by_vec3_elementwise() {
     let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
     let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
     let product = v1 * v2;
@@ -176,10 +193,28 @@ mod should {
     assert_eq!(product.k, 6.0);
   }
   #[test]
-  fn multiply_assign_elementwise() {
+  fn multiply_by_vec3_assign_elementwise() {
     let mut v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
     let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
     v1 *= v2;
+    assert_eq!(v1.i, 6.0);
+    assert_eq!(v1.j, 6.0);
+    assert_eq!(v1.k, 6.0);
+  }
+  #[test]
+  fn multiply_by_f64() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let product = v1 * 3.0;
+
+    assert_eq!(product.i, 6.0);
+    assert_eq!(product.j, 6.0);
+    assert_eq!(product.k, 6.0);
+  }
+  #[test]
+  fn multiply_by_f64_assign() {
+    let mut v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    v1 *= 3.0;
+
     assert_eq!(v1.i, 6.0);
     assert_eq!(v1.j, 6.0);
     assert_eq!(v1.k, 6.0);
