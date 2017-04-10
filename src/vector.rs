@@ -26,6 +26,9 @@ impl Vec3 {
   pub fn length(&self) -> f64 {
     (self.i * self.i + self.j * self.j + self.k * self.k).sqrt()
   }
+  pub fn squared_length(&self) -> f64 {
+    self.i * self.i + self.j * self.j + self.k * self.k
+  }
   pub fn dot(&self, other: Vec3) -> f64 {
     self.i * other.i + self.j * other.j + self.k * other.k
   }
@@ -318,6 +321,11 @@ mod should {
     let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
 
     assert_eq!(v1.length(), 6.0);
+  }
+  fn calculate_length_squared() {
+    let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
+
+    assert_eq!(v1.squared_length(), 36.0);
   }
   #[test]
   fn calculate_length_with_some_zeros() {
