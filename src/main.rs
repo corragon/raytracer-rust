@@ -13,7 +13,7 @@ fn main() {
 
   for j in (0..ny).rev() {
     for i in 0..nx {
-      let color = Vec3 { i: i as f64 / nx as f64, j: j as f64 / ny as f64, k: 0.5 };
+      let color = Vec3::new(i as f64 / nx as f64, j as f64 / ny as f64, 0.5);
 
       let ir = (255.99*color.i) as i32;
       let ig = (255.99*color.j) as i32;
