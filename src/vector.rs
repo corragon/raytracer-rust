@@ -6,7 +6,7 @@ use std::ops::{
   Index, IndexMut,
 };
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vec3 {
   pub i : f64,
   pub j : f64,
@@ -322,6 +322,7 @@ mod should {
 
     assert_eq!(v1.length(), 6.0);
   }
+  #[test]
   fn calculate_length_squared() {
     let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
 

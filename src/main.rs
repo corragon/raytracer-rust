@@ -2,6 +2,8 @@ use std::io::{Write, BufWriter};
 use std::fs::File;
 mod vector;
 use vector::Vec3;
+mod ray;
+use ray::Ray;
 
 fn main() {
   let nx = 300;
