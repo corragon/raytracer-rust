@@ -185,7 +185,7 @@ impl IndexMut<i32> for Vec3 {
 
 #[cfg(test)]
 mod should {
-  use super::Vec3;
+  use super::{Vec3, dot, cross, unit_vector};
   #[test]
   fn add() {
     let v1 = Vec3 { i: 1.0, j: 1.0, k: 1.0};
@@ -389,6 +389,46 @@ mod should {
     let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
 
     let product = v1.unit_vector();
+
+    assert_eq!(product[0], 4.0 / 6.0);
+    assert_eq!(product[1], 4.0 / 6.0);
+    assert_eq!(product[2], 2.0 / 6.0);
+  }
+  #[test]
+  fn calculate_dot_product_static() {
+    let v1 = Vec3 { i: 2.0, j: 2.0, k: 2.0};
+    let v2 = Vec3 { i: 3.0, j: 3.0, k: 3.0};
+
+    let product = dot(v1, v2);
+
+    assert_eq!(product, 18.0);
+  }
+  #[test]
+  fn calculate_cross_product_static() {
+    let v1 = Vec3 { i: 1.0, j: 0.0, k: 0.0};
+    let v2 = Vec3 { i: 0.0, j: 1.0, k: 0.0};
+
+    let product = cross(v1, v2);
+
+    assert_eq!(product[0], 0.0);
+    assert_eq!(product[1], 0.0);
+    assert_eq!(product[2], 1.0);
+  }
+  #[test]
+  fn calculate_unit_vector_static_simple() {
+    let v1 = Vec3 { i: 4.0, j: 0.0, k: 0.0};
+
+    let product = unit_vector(v1);
+
+    assert_eq!(product[0], 1.0);
+    assert_eq!(product[1], 0.0);
+    assert_eq!(product[2], 0.0);
+  }
+  #[test]
+  fn calculate_unit_vector_static_multple() {
+    let v1 = Vec3 { i: 4.0, j: 4.0, k: 2.0};
+
+    let product = unit_vector(v1);
 
     assert_eq!(product[0], 4.0 / 6.0);
     assert_eq!(product[1], 4.0 / 6.0);
