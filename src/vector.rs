@@ -44,6 +44,20 @@ impl Vec3 {
   }
 }
 
+pub fn dot(v1: Vec3, v2: Vec3) -> f64 {
+  v1.i * v2.i + v1.j * v2.j + v1.k * v2.k
+}
+pub fn cross(v1: Vec3, v2: Vec3) -> Vec3 {
+  return Vec3 {
+    i: v1.j * v2.k - v1.k * v2.j,
+    j: -(v1.i * v2.k - v1.k * v2.i),
+    k: v1.i * v2.j - v1.j * v2.i,
+  };
+}
+pub fn unit_vector(v1: Vec3) -> Vec3 {
+  return v1 / v1.length()
+}
+
 impl Add for Vec3 {
   type Output = Vec3;
   fn add(self, other: Vec3) -> Vec3 {
