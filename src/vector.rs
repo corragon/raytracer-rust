@@ -30,17 +30,13 @@ impl Vec3 {
     self.i * self.i + self.j * self.j + self.k * self.k
   }
   pub fn dot(&self, other: Vec3) -> f64 {
-    self.i * other.i + self.j * other.j + self.k * other.k
+    dot(*self, other)
   }
   pub fn cross(&self, other: Vec3) -> Vec3 {
-    return Vec3 {
-      i: self.j * other.k - self.k * other.j,
-      j: -(self.i * other.k - self.k * other.i),
-      k: self.i * other.j - self.j * other.i,
-    };
+    cross(*self, other)
   }
   pub fn unit_vector(&self) -> Vec3 {
-    return *self / self.length()
+    unit_vector(*self)
   }
 }
 
