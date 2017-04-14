@@ -7,6 +7,6 @@ pub struct hit_record {
   pub normal : Vec3,
 }
 
-trait hitable {
-  fn hit(r: Ray, t_min: f64, t_max: f64, rec: hit_record) -> bool
+pub trait hitable {
+  fn hit(self, r: Ray, t_min: f64, t_max: f64, rec: &mut hit_record) -> bool;
 }

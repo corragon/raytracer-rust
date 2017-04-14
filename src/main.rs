@@ -4,6 +4,9 @@ mod vector;
 use vector::{Vec3, dot, cross, unit_vector};
 mod ray;
 use ray::Ray;
+mod sphere;
+use sphere::{Sphere};
+mod hitable;
 
 fn hit_sphere(center: Vec3, radius: f64, ray: Ray) -> f64 {
   let oc = ray.origin() - center;
