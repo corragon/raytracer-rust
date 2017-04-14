@@ -5,6 +5,7 @@ mod vector;
 mod ray;
 mod sphere;
 mod hitable;
+mod hitable_list;
 
 use vector::{Vec3, dot, cross, unit_vector};
 use ray::Ray;
