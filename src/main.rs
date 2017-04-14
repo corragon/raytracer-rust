@@ -1,12 +1,14 @@
 use std::io::{Write, BufWriter};
 use std::fs::File;
+
 mod vector;
-use vector::{Vec3, dot, cross, unit_vector};
 mod ray;
-use ray::Ray;
 mod sphere;
-use sphere::{Sphere};
 mod hitable;
+
+use vector::{Vec3, dot, cross, unit_vector};
+use ray::Ray;
+use sphere::{Sphere};
 
 fn hit_sphere(center: Vec3, radius: f64, ray: Ray) -> f64 {
   let oc = ray.origin() - center;
