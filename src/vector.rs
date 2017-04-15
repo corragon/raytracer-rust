@@ -17,6 +17,9 @@ impl Vec3 {
   pub fn new(first : f64, second : f64, third : f64) -> Vec3 {
     Vec3 { i: first, j: second, k: third }
   }
+  pub fn origin() -> Vec3 {
+    Vec3 { i: 0.0, j: 0.0, k: 0.0 }
+  }
   pub fn x(&self) -> f64 { self.i }
   pub fn y(&self) -> f64 { self.j }
   pub fn z(&self) -> f64 { self.k }
