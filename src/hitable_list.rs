@@ -23,7 +23,9 @@ impl Hitable for Hitable_list {
       if item.hit(r, t_min, t_max, &mut temp_rec) {
         hit_anything = true;
         closest_so_far = temp_rec.t;
-        let mut rec = temp_rec;
+        rec.t = temp_rec.t;
+        rec.p = temp_rec.p;
+        rec.normal = temp_rec.normal;
       }
     }
     return hit_anything;
