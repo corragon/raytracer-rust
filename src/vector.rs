@@ -18,7 +18,10 @@ impl Vec3 {
     Vec3 { i: first, j: second, k: third }
   }
   pub fn origin() -> Vec3 {
-    Vec3 { i: 0.0, j: 0.0, k: 0.0 }
+    Vec3::all(0.0)
+  }
+  pub fn all(s : f64) -> Vec3 {
+    Vec3 { i: s, j: s, k: s }
   }
   pub fn x(&self) -> f64 { self.i }
   pub fn y(&self) -> f64 { self.j }
@@ -448,5 +451,21 @@ mod should {
     assert_eq!(v1.x(), 1.0);
     assert_eq!(v1.y(), 2.0);
     assert_eq!(v1.z(), 3.0);
+  }
+  #[test]
+  fn make_origin() {
+    let v1 = Vec3::origin();
+
+    assert_eq!(v1.x(), 0.0);
+    assert_eq!(v1.y(), 0.0);
+    assert_eq!(v1.z(), 0.0);
+  }
+  #[test]
+  fn make_with_all() {
+    let v1 = Vec3::all(1.0);
+
+    assert_eq!(v1.x(), 1.0);
+    assert_eq!(v1.y(), 1.0);
+    assert_eq!(v1.z(), 1.0);
   }
 }
