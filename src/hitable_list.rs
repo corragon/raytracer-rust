@@ -20,7 +20,7 @@ impl Hitable for Hitable_list {
     let mut closest_so_far = t_max;
 
     for item in self.list.iter() {
-      if item.hit(r, t_min, t_max, &mut temp_rec) {
+      if item.hit(r, t_min, closest_so_far, &mut temp_rec) {
         hit_anything = true;
         closest_so_far = temp_rec.t;
         rec.t = temp_rec.t;
