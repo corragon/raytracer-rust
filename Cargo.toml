@@ -3,3 +3,6 @@
 name = "rust_raytracer"
 version = "0.0.1"
 authors = [ "Thomas Yarnall <corragon@gmail.com>", "Josh Anderson" ]
+
+[dependencies]
+rand = "0.3.15"

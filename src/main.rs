@@ -1,6 +1,9 @@
 use std::io::{Write, BufWriter};
 use std::fs::File;
 
+extern crate rand;
+use rand::Rng;
+
 mod vector;
 mod ray;
 mod sphere;
