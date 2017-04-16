@@ -1,5 +1,5 @@
 use ray::Ray;
-use hitable::{hitable, hit_record};
+use hitable::{Hitable, hit_record};
 use vector::{Vec3, dot, cross, unit_vector};
 
 pub struct Sphere {
@@ -8,13 +8,13 @@ pub struct Sphere {
 }
 
 impl Sphere {
-  fn new(cen: Vec3, r: f64) -> Sphere {
+  pub fn new(cen: Vec3, r: f64) -> Sphere {
     Sphere { center : cen, radius : r }
   }
 }
 
-impl hitable for Sphere {
-  fn hit(self, r: Ray, t_min: f64, t_max: f64, rec: &mut hit_record) -> bool {
+impl Hitable for Sphere {
+  fn hit(&self, r: Ray, t_min: f64, t_max: f64, rec: &mut hit_record) -> bool {
     let oc = r.origin() - self.center;
     let a = dot(r.direction(), r.direction());
     let b = dot(oc, r.direction());

@@ -10,31 +10,20 @@ mod hitable_list;
 use vector::{Vec3, dot, cross, unit_vector};
 use ray::Ray;
 use sphere::{Sphere};
+use hitable::{Hitable, hit_record};
+use hitable_list::Hitable_list;
 
-fn hit_sphere(center: Vec3, radius: f64, ray: Ray) -> f64 {
-  let oc = ray.origin() - center;
-  let a: f64 = dot(ray.direction(), ray.direction());
-  let b: f64 = dot(oc, ray.direction()) * 2.0;
-  let c: f64 = dot(oc, oc) - radius * radius;
-  let discriminant = b * b - 4.0 * a * c;
-  if discriminant < 0.0 {
-    return -1.0
+
+fn color<T: Hitable>(ray : Ray, world : &T) -> Vec3 {
+  let mut rec = hit_record::new(0.0, Vec3::origin(), Vec3::origin());
+  if world.hit(ray, 0.0, std::f64::MAX, &mut rec) {
+    return (rec.normal + Vec3::new(1.0, 1.0, 1.0)) * 0.5
   }
   else {
-    return (-b - discriminant.sqrt()) / (2.0 * a);
+    let unit_direction = unit_vector(ray.direction());
+    let t = (unit_direction.y() + 1.0) * 0.5;
+    return Vec3::new(1.0, 1.0, 1.0) * (1.0 - t) + Vec3::new(0.5, 0.7, 1.0) * t;
   }
-}
-
-fn color(ray : Ray) -> Vec3 {
-  let t = hit_sphere(Vec3::new(0.0, 0.0, -1.0), 0.5, ray);
-  if t > 0.0 {
-    let n = unit_vector(ray.point_at_parameter(t) - Vec3::new(0.0, 0.0, -1.0));
-    return (Vec3::new(n.x()+1.0, n.y()+1.0, n.z()+1.0)) * 0.5;
-  }
-
-  let unit_direction = ray.direction().unit_vector();
-  let t = 0.5 * (unit_direction.y() + 1.0);
-  return Vec3::new(1.0,1.0,1.0) * (1.0 - t) + Vec3::new(0.5,0.7,1.0) * t;
 }
 
 fn main() {
@@ -50,12 +39,20 @@ fn main() {
   let vertical = Vec3::new(0.0, 2.0, 0.0);
   let origin = Vec3::new(0.0, 0.0, 0.0);
 
+  let mut list : Vec<Box<Hitable>> = Vec::new();
+  list.push(Box::new(Sphere::new(Vec3::new(0.0,0.0,-1.0), 0.5)));
+  list.push(Box::new(Sphere::new(Vec3::new(0.0,-100.5,-1.0), 100.0)));
+
+  let world = Hitable_list::new(list);
+
   for j in (0..ny).rev() {
     for i in 0..nx {
       let u = i as f64 / nx as f64;
       let v = j as f64 / ny as f64;
       let r = Ray::new(origin, lower_left_corner + horizontal * u + vertical * v);
-      let col = color(r);
+
+      let p = r.point_at_parameter(2.0);
+      let col = color(r, &world);
 
       let ir = (255.99*col.r()) as i32;
       let ig = (255.99*col.g()) as i32;
