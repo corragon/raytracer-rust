@@ -31,6 +31,16 @@ fn color<T: Hitable>(ray : Ray, world : &T) -> Vec3 {
   }
 }
 
+fn random_in_unit_sphere() -> Vec3 {
+  let mut p : Vec3;
+  let mut rng = rand::thread_rng();
+  loop {
+    p = Vec3::new(rng.gen::<f64>(),rng.gen::<f64>(),rng.gen::<f64>()) * 2.0 - Vec3::all(1.0);
+    if dot(p, p) < 1.0 { break; }
+  }
+  p
+}
+
 fn random<T: Hitable>(i : i32, j : i32, nx : i32, ny : i32, cam : Camera, world : &T, rng : &mut rand::ThreadRng) -> Vec3 {
   let sample_size = 100;
   let mut samples = 0;
