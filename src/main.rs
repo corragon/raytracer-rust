@@ -32,18 +32,20 @@ fn color<T: Hitable>(ray : Ray, world : &T) -> Vec3 {
 }
 
 fn random<T: Hitable>(i : i32, j : i32, nx : i32, ny : i32, cam : Camera, world : &T, rng : &mut rand::ThreadRng) -> Vec3 {
-  let ns = 100;
+  let sample_size = 100;
+  let mut samples = 0;
   let mut col = Vec3::origin();
-  for s in 0..ns {
+  loop {
     let u = (i as f64 + rng.gen::<f64>()) / nx as f64;
     let v = (j as f64 + rng.gen::<f64>()) / ny as f64;
     let r = cam.get_ray(u, v);
 
-    let p = r.point_at_parameter(2.0);
     col += color(r, world);
+    samples += 1;
+    if samples >= sample_size { break; }
   }
 
-  col /= ns as f64;
+  col /= sample_size as f64;
   return col;
 }
 
@@ -51,16 +53,15 @@ fn stratified<T: Hitable>(i : i32, j : i32, nx : i32, ny : i32, cam : Camera, wo
   let mut col = Vec3::origin();
   let grid_size = 5;
   let step = 1.0 / grid_size as f64;
-  let lowI = i as f64 - 0.5;
-  let lowJ = j as f64 - 0.5;
+  let low_i = i as f64 - 0.5;
+  let low_j = j as f64 - 0.5;
 
   for ii in 0..grid_size {
     for jj in 0..grid_size {
-      let u = ((lowI + ii as f64 * step) + rng.gen_range(0.0, step)) / nx as f64;
-      let v = ((lowJ + jj as f64 * step) + rng.gen_range(0.0, step)) / ny as f64;
+      let u = ((low_i + ii as f64 * step) + rng.gen_range(0.0, step)) / nx as f64;
+      let v = ((low_j + jj as f64 * step) + rng.gen_range(0.0, step)) / ny as f64;
       let r = cam.get_ray(u, v);
 
-      let p = r.point_at_parameter(2.0);
       col += color(r, world);
     }
   }
