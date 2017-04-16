@@ -6,6 +6,7 @@ mod ray;
 mod sphere;
 mod hitable;
 mod hitable_list;
+mod camera;
 
 use vector::{Vec3, dot, cross, unit_vector};
 use ray::Ray;
