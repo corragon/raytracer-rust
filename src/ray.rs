@@ -2,22 +2,22 @@ use vector::Vec3;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Ray {
-  pub A : Vec3,
-  pub B : Vec3,
+  pub a : Vec3,
+  pub b : Vec3,
 }
 
 impl Ray {
   pub fn new(a: Vec3, b: Vec3) -> Ray {
-    Ray { A: a, B: b}
+    Ray { a: a, b: b}
   }
   pub fn origin(&self) -> Vec3 {
-    self.A
+    self.a
   }
   pub fn direction(&self) -> Vec3 {
-    self.B
+    self.b
   }
   pub fn point_at_parameter(&self, t: f64) -> Vec3 {
-    self.A + self.B * t
+    self.a + self.b * t
   }
 }
 
