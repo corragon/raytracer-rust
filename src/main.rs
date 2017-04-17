@@ -106,7 +106,7 @@ fn main() {
   for j in (0..ny).rev() {
     for i in 0..nx {
       let mut col = stratified(i, j, nx, ny, cam, &world, &mut rng);
-      col = Vec3::new(col[0].sqrt(), col[1].sqrt(), col[2].sqrt());
+      col = col.sqrt();
 
       let ir = (255.99*col.r()) as i32;
       let ig = (255.99*col.g()) as i32;
