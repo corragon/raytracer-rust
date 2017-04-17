@@ -44,6 +44,9 @@ impl Vec3 {
   pub fn unit_vector(&self) -> Vec3 {
     unit_vector(*self)
   }
+  pub fn sqrt(&self) -> Vec3 {
+    Vec3 { i: self.i.sqrt(), j: self.j.sqrt(), k: self.k.sqrt() }
+  }
 }
 
 pub fn dot(v1: Vec3, v2: Vec3) -> f64 {
@@ -435,6 +438,16 @@ mod should {
     assert_eq!(product[0], 4.0 / 6.0);
     assert_eq!(product[1], 4.0 / 6.0);
     assert_eq!(product[2], 2.0 / 6.0);
+  }
+  #[test]
+  fn calculate_square_root_elementwise() {
+    let v1 = Vec3 { i: 16.0, j: 9.0, k: 25.0};
+
+    let roots = v1.sqrt();
+
+    assert_eq!(roots[0], 4.0);
+    assert_eq!(roots[1], 3.0);
+    assert_eq!(roots[2], 5.0);
   }
   #[test]
   fn have_color_access_functions() {
