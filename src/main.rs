@@ -16,6 +16,7 @@ mod sphere;
 mod hitable;
 mod hitable_list;
 mod camera;
+mod material;
 
 use vector::{Vec3, dot, cross, unit_vector};
 use ray::Ray;
