@@ -6,8 +6,8 @@ use rand::Rng;
 
 extern crate image;
 use image::{
-	GenericImage,
-	ImageBuffer
+  GenericImage,
+  ImageBuffer
 };
 
 mod vector;
@@ -110,7 +110,7 @@ fn main() {
   for (x, y, pixel) in img.enumerate_pixels_mut() {
     let mut col = stratified(x as i32, y as i32, nx, ny, cam, &world, &mut rng);
     col = col.sqrt();
-	*pixel = image::Rgb([(col.i * 255.0) as u8, (col.j * 255.0) as u8, (col.k * 255.0) as u8]);
+    *pixel = image::Rgb([(col.i * 255.0) as u8, (col.j * 255.0) as u8, (col.k * 255.0) as u8]);
   }
 
   let _ = image::ImageRgb8(img).save(&mut f, image::PNG);
