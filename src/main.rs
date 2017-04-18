@@ -4,6 +4,12 @@ use std::fs::File;
 extern crate rand;
 use rand::Rng;
 
+extern crate image;
+use image::{
+	GenericImage,
+	ImageBuffer
+};
+
 mod vector;
 mod ray;
 mod sphere;
@@ -84,17 +90,15 @@ fn stratified<T: Hitable>(i : i32, j : i32, nx : i32, ny : i32, cam : Camera, wo
 fn main() {
   let nx = 200;
   let ny = 100;
-  let data = format!("{}\n{} {}\n{}\n", "P3", nx, ny, 255);
-  let f = File::create("target/image.ppm").expect("Unable to create file");
-  let mut f = BufWriter::new(f);
-  f.write_all(data.as_bytes()).expect("Unable to write data");
+  let mut img = ImageBuffer::new(nx as u32, ny as u32);
+  let mut f = File::create("target/image.png").expect("Unable to create file");
 
-  let lower_left_corner = Vec3::new(-2.0, -1.0, -1.0);
+  let upper_left_corner = Vec3::new(-2.0, 1.0, -1.0);
   let horizontal = Vec3::new(4.0, 0.0, 0.0);
   let vertical = Vec3::new(0.0, 2.0, 0.0);
   let origin = Vec3::new(0.0, 0.0, 0.0);
 
-  let cam = Camera::new(lower_left_corner, vertical, horizontal, origin);
+  let cam = Camera::new(upper_left_corner, vertical, horizontal, origin);
 
   let mut list : Vec<Box<Hitable>> = Vec::new();
   list.push(Box::new(Sphere::new(Vec3::new(0.0,0.0,-1.0), 0.5)));
@@ -103,15 +107,11 @@ fn main() {
 
   let mut rng = rand::thread_rng();
 
-  for j in (0..ny).rev() {
-    for i in 0..nx {
-      let mut col = stratified(i, j, nx, ny, cam, &world, &mut rng);
-      col = col.sqrt();
-
-      let ir = (255.99*col.r()) as i32;
-      let ig = (255.99*col.g()) as i32;
-      let ib = (255.99*col.b()) as i32;
-      f.write_all(format!("{} {} {}\n", ir, ig, ib).as_bytes()).expect("Unable to write data");
-    }
+  for (x, y, pixel) in img.enumerate_pixels_mut() {
+    let mut col = stratified(x as i32, y as i32, nx, ny, cam, &world, &mut rng);
+    col = col.sqrt();
+	*pixel = image::Rgb([(col.i * 255.0) as u8, (col.j * 255.0) as u8, (col.k * 255.0) as u8]);
   }
+
+  let _ = image::ImageRgb8(img).save(&mut f, image::PNG);
 }
