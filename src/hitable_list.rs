@@ -1,21 +1,21 @@
 use ray::Ray;
-use hitable::{Hitable, hit_record};
+use hitable::{Hitable, HitRecord};
 use vector::Vec3;
 
-pub struct Hitable_list {
+pub struct HitableList {
   pub list_size : i64,
   pub list : Vec<Box<Hitable>>,
 }
 
-impl Hitable_list {
-  pub fn new(l : Vec<Box<Hitable>>) -> Hitable_list {
-    Hitable_list { list_size : l.len() as i64, list: l }
+impl HitableList {
+  pub fn new(l : Vec<Box<Hitable>>) -> HitableList {
+    HitableList { list_size : l.len() as i64, list: l }
   }
 }
 
-impl Hitable for Hitable_list {
-  fn hit(&self, r: Ray, t_min: f64, t_max: f64, rec: &mut hit_record) -> bool {
-    let mut temp_rec = hit_record::new(0.0, Vec3::origin(), Vec3::origin());
+impl Hitable for HitableList {
+  fn hit(&self, r: Ray, t_min: f64, t_max: f64, rec: &mut HitRecord) -> bool {
+    let mut temp_rec = HitRecord::new(0.0, Vec3::origin(), Vec3::origin());
     let mut hit_anything = false;
     let mut closest_so_far = t_max;
 

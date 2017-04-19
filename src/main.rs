@@ -21,13 +21,13 @@ mod material;
 use vector::{Vec3, dot, cross, unit_vector};
 use ray::Ray;
 use sphere::{Sphere};
-use hitable::{Hitable, hit_record};
-use hitable_list::Hitable_list;
+use hitable::{Hitable, HitRecord};
+use hitable_list::HitableList;
 use camera::Camera;
 
 
 fn color<T: Hitable>(ray : Ray, world : &T) -> Vec3 {
-  let mut rec = hit_record::new(0.0, Vec3::origin(), Vec3::origin());
+  let mut rec = HitRecord::new(0.0, Vec3::origin(), Vec3::origin());
   if world.hit(ray, 0.0, std::f64::MAX, &mut rec) {
     let target = rec.p + rec.normal + random_in_unit_sphere();
     return color(Ray::new(rec.p, target - rec.p), world) * 0.5
@@ -104,7 +104,7 @@ fn main() {
   let mut list : Vec<Box<Hitable>> = Vec::new();
   list.push(Box::new(Sphere::new(Vec3::new(0.0,0.0,-1.0), 0.5)));
   list.push(Box::new(Sphere::new(Vec3::new(0.0,-100.5,-1.0), 100.0)));
-  let world = Hitable_list::new(list);
+  let world = HitableList::new(list);
 
   let mut rng = rand::thread_rng();
 
