@@ -13,6 +13,7 @@ pub struct Vec3 {
   pub k : f64,
 }
 
+#[allow(dead_code)]
 impl Vec3 {
   pub fn new(first : f64, second : f64, third : f64) -> Vec3 {
     Vec3 { i: first, j: second, k: third }
