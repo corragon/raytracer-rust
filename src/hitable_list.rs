@@ -1,6 +1,6 @@
 use ray::Ray;
 use hitable::{Hitable, hit_record};
-use vector::{Vec3, dot, cross, unit_vector};
+use vector::Vec3;
 
 pub struct Hitable_list {
   pub list_size : i64,
