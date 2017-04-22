@@ -1,4 +1,3 @@
-use std::io::{Write, BufWriter};
 use std::fs::File;
 
 extern crate rand;
@@ -6,7 +5,6 @@ use rand::Rng;
 
 extern crate image;
 use image::{
-  GenericImage,
   ImageBuffer
 };
 
@@ -18,7 +16,7 @@ mod hitable_list;
 mod camera;
 mod material;
 
-use vector::{Vec3, dot, cross, unit_vector};
+use vector::{Vec3, dot, unit_vector};
 use ray::Ray;
 use sphere::{Sphere};
 use hitable::{Hitable, HitRecord};
@@ -49,6 +47,7 @@ fn random_in_unit_sphere() -> Vec3 {
   p
 }
 
+#[allow(dead_code)]
 fn random<T: Hitable>(i : i32, j : i32, nx : i32, ny : i32, cam : Camera, world : &T, rng : &mut rand::ThreadRng) -> Vec3 {
   let sample_size = 100;
   let mut samples = 0;
