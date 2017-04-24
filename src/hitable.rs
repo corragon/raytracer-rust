@@ -1,7 +1,6 @@
 use vector::Vec3;
 use ray::Ray;
 
-#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct HitRecord {
   pub t : f64,
   pub p : Vec3,
