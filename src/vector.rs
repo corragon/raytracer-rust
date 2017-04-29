@@ -50,9 +50,11 @@ impl Vec3 {
   }
 }
 
+#[allow(dead_code)]
 pub fn dot(v1: Vec3, v2: Vec3) -> f64 {
   v1.i * v2.i + v1.j * v2.j + v1.k * v2.k
 }
+#[allow(dead_code)]
 pub fn cross(v1: Vec3, v2: Vec3) -> Vec3 {
   return Vec3 {
     i: v1.j * v2.k - v1.k * v2.j,
@@ -60,6 +62,7 @@ pub fn cross(v1: Vec3, v2: Vec3) -> Vec3 {
     k: v1.i * v2.j - v1.j * v2.i,
   };
 }
+#[allow(dead_code)]
 pub fn unit_vector(v1: Vec3) -> Vec3 {
   return v1 / v1.length()
 }
