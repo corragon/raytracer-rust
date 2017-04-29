@@ -22,9 +22,9 @@ impl Hitable for HitableList {
     for item in self.list.iter() {
       if item.hit(r, t_min, closest_so_far, &mut temp_rec) {
         hit_anything = true;
-        closest_so_far = temp_rec.t;
-        rec.t = temp_rec.t;
-        rec.p = temp_rec.p;
+        closest_so_far = temp_rec.time;
+        rec.time = temp_rec.time;
+        rec.point = temp_rec.point;
         rec.normal = temp_rec.normal;
       }
     }

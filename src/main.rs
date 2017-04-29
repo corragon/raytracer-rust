@@ -27,8 +27,8 @@ use camera::Camera;
 fn color<T: Hitable>(ray : Ray, world : &T) -> Vec3 {
   let mut rec = HitRecord::new(0.0, Vec3::origin(), Vec3::origin());
   if world.hit(ray, 0.0, std::f64::MAX, &mut rec) {
-    let target = rec.p + rec.normal + random_in_unit_sphere();
-    return color(Ray::new(rec.p, target - rec.p), world) * 0.5
+    let target = rec.point + rec.normal + random_in_unit_sphere();
+    return color(Ray::new(rec.point, target - rec.point), world) * 0.5
   }
   else {
     let unit_direction = unit_vector(ray.direction());

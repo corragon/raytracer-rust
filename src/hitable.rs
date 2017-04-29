@@ -2,14 +2,14 @@ use vector::Vec3;
 use ray::Ray;
 
 pub struct HitRecord {
-  pub t : f64,
-  pub p : Vec3,
+  pub time : f64,
+  pub point : Vec3,
   pub normal : Vec3,
 }
 
 impl HitRecord {
-  pub fn new(time : f64, point : Vec3, norm : Vec3) -> HitRecord {
-    HitRecord { t: time, p: point, normal: norm }
+  pub fn new(t : f64, p : Vec3, norm : Vec3) -> HitRecord {
+    HitRecord { time: t, point: p, normal: norm }
   }
 }
 

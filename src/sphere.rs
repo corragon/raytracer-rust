@@ -24,16 +24,16 @@ impl Hitable for Sphere {
     if discriminant > 0.0 {
       let mut temp = (-b - (b * b - a * c).sqrt()) / a;
       if temp < t_max && temp > t_min {
-        rec.t = temp;
-        rec.p = r.point_at_parameter(rec.t);
-        rec.normal = (rec.p - self.center) / self.radius;
+        rec.time = temp;
+        rec.point = r.point_at_parameter(rec.time);
+        rec.normal = (rec.point - self.center) / self.radius;
         return true;
       }
       temp = (-b + (b * b - a * c).sqrt()) / a;
       if temp < t_max && temp > t_min {
-        rec.t = temp;
-        rec.p = r.point_at_parameter(rec.t);
-        rec.normal = (rec.p - self.center) / self.radius;
+        rec.time = temp;
+        rec.point = r.point_at_parameter(rec.time);
+        rec.normal = (rec.point - self.center) / self.radius;
         return true;
       }
     }
